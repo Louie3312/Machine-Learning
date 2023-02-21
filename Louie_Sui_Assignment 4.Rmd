@@ -1,0 +1,249 @@
+---
+title: "Breast Cancer and Machine Learning Prediction"
+author: "Louie Sui"
+date: "2022-11-10"
+output: pdf_document
+---
+
+(In this project, we will be analyzing a dataset containing records of samples of cancer cells from different patients. Each records will have details of the cell size and shape along with other details about the cancer cell. We will use this data set to help us predict the nature of the cancer cells and hopefully develop an algorithm to correctly identity the nature before its too late. We will test 3 machine learning algorithms to determine which model is most accurate and better at predicting.)
+
+# Import Libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(caTools)
+library(class)
+library(rpart)
+set.seed(23)
+```
+
+# Part 1: Import Dataset
+#### The Data Set
+In the code below, we set up the dataset. We rename each column to their correct names and translate the cell classes to their more coherent labels.  
+```{r}
+cancer = read.csv("breastcancer.csv")
+
+names(cancer) = c("Sample_ID",
+                  "Clump_Thickness",
+                  "Uniformity_of_Cell_Size",
+                  "Uniformity_of_Cell_Shape",
+                  "Marginal_Adhesion",
+                  "Single_Epithelial_Cell_Size",
+                  "Bare_Nuclei",
+                  "Bland_Chromatin",
+                  "Normal_Nucleoli",
+                  "Mitoses",
+                  "Class")
+
+cancer = na.omit(cancer)
+cancer$Class = factor(cancer$Class,
+                      levels=c(2,4),
+                      labels=c("Benign","Malignant"))
+```
+
+#### Plot scatterplot of clump thickness and cell size with the nature of the cell color-coded. 
+We can see from the graph below that there is a pattern between clump thickness and cell size. Benign cells have smaller clump thickness and cell size than malignant cells. This is to say that Maliganant cells are usually larger in size and thickness.
+```{r}
+cancer %>%
+  ggplot(aes(x=Clump_Thickness, y=Uniformity_of_Cell_Size, color = Class)) +
+  geom_point()
+```
+# Part 2: Define Functions
+#### Create functions that, given a confusion matrix, calculate sensitivity, specificity, accuracy and precision.
+We have defined below 4 functions that we will use to measure the quality of our model: 
+
+  * sensitivity
+  * specificity
+  * accuracy
+  * and precision
+
+Sensitivity measures the quality of the model by calculating the rate the model will correctly predict positive result given that the actual result is positive. In other words, the below function divides the number of true positives from our model by the sum of true positives and false negatives. For this function, the higher the rate the better the quality of the model.  
+```{r}
+sensitivity = function(cm){
+  return(cm[2,2]/(cm[2,2]+cm[2,1]))
+}
+```
+
+Next, specificity calculates the rate the model will accurately predict negatives given that the actual results of the data are negative. The below function divides the number of true negatives by the sum of true negatives and false positives. Even though the function measures the rate of negatives, a higher rate will represent a higher quality model.
+```{r}
+specificity = function(cm){
+  return(cm[1,1]/(cm[1,1]+cm[1,2]))
+}
+```
+
+Moving on, accuracy is the simplest. Accuracy simply measures the rate the model has correctly predicted either positives or negatives of all outcomes. This function will divide the sum of true positives and true negatives by the number of all predictions made. Of course, the higher the rate the better the quality of the model. 
+```{r}
+accuracy = function(cm){
+  return((cm[1,1]+cm[2,2])/(cm[1,1]+cm[1,2]+cm[2,1]+cm[2,2]))
+}
+```
+
+Finally, precision measures the rate that the model has accurately predicted a positive outcome of all the positives predictions that the model has made. This function will divide the number of true positives by the sum of true positives and false positives. This number will give us an idea of how reliable the model when it states a positive prediction.  
+```{r}
+precision = function(cm){
+  return(cm[2,2]/(cm[2,2]+cm[1,2]))
+}
+```
+
+# Part 3: Clean the Data
+#### Transform all quantitative into z-score values
+We use the *scale()* function to quickly convert the values of each variable into z-score values. Z-score values provide us with more information and eliminates much of the noise between variables. This makes it easy for us to use in our models. 
+```{r}
+cancer$Clump_Thickness = scale(cancer$Clump_Thickness)
+cancer$Uniformity_of_Cell_Size = scale(cancer$Uniformity_of_Cell_Size)
+cancer$Uniformity_of_Cell_Shape = scale(cancer$Uniformity_of_Cell_Shape)
+cancer$Marginal_Adhesion = scale(cancer$Marginal_Adhesion)
+cancer$Single_Epithelial_Cell_Size = scale(cancer$Single_Epithelial_Cell_Size)
+```
+
+# Part 4: Create Training and Test Data Sets
+#### Create a training data set and test data set with a 67/33 split                                                                      . 
+```{r}
+split = sample(x=2, size=nrow(cancer), replace=TRUE, prob=c(.67, .33))
+cancer.training = cancer[split==1, 2:6]
+cancer.test = cancer[split==2, 2:6]
+cancer.trainLabels = cancer[split==1, 11]
+cancer.testLabels = cancer[split==2, 11]
+```
+
+# Part 5: KNN Prediction
+#### Perform a KNN prediction of Class as a function of Clump_Thickness, Uniformity_of_Cell_Size, Uniformity_of_Cell_Shape, Marginal_Adhesion, and Single_Epithelial_Cell_Size.
+KNN prediction model is a classification method used to classify an object by their similarity to its nearest combination of variables. This method is often used when a classification of an object can not be easily determined by itself. To use the method, we must create a training data set to train the model. We will use this method to identify the class of the cancer cells using the known column variables. 
+```{r}
+prediction = knn(train=cancer.training
+                 , test=cancer.test
+                 , cl=cancer.trainLabels
+                 , k=3)
+```
+
+#### Produce the confusion matrix
+The 2x2 matrix below shows the result of our KNN prediction model. Our model predicted a large amount of true positives (combinations of predicted malignant and actual malignant result) and true negatives (combination of predicted benign and actual benign).
+```{r}
+(confusionMatrix = table(actual=cancer.testLabels,
+                        prediction))
+```
+
+#### Calculate sensitivity, specificity, accuracy, and precision.
+The sensitivity of this model is 0.8889. This model will correctly identify a malignant class cell 88.89% of the time of all patients with malignant class cancers. In other words, about 12 in 100 patients who have malignant cancer will be incorrectly notified that they have a benign class cancer. 12% of patients would expect to be given a incorrect report using this model. This number should be taken seriously because this rate determines if a patient will be able to react in a timely manner to their results. Patient who has malignant class cancer needs to be notified on time and as soon as possible. 
+```{r}
+sensitivity(confusionMatrix)
+```
+
+The specificity of this model is 0.9515. This means that this model will correctly identify a benign class cancer 95.15% of the times given that patients actually cell is a benign class cancer. However, even though this number is high, in terms of importance, specificity is not as important as sensitivity; it is not as crucial to notify cancer patient that their cancer class is not life threatening than it is to correctly notify a cancer patient that their cancer is life threatening.
+```{r}
+specificity(confusionMatrix)
+```
+
+Moving on, the accuracy of this model is 0.9325. This means that this model correctly identifies the correct class of cancer 93.25% of the time for all cancer patients. This number is high and represent that out of 100 patients, the model will only make 7 bad predictions. This rate represents a realistic prediction of the reliability of the model because we do not know if the class of cancer cell is benign or malignant beforehand in a real case.
+```{r}
+accuracy(confusionMatrix)
+```
+
+Last but not least, the precision of this model is 0.8889. This model is correct 88.89% of the time in identifying malignant cancer cells given that the cancer cell is malignant. In other words, 12 in 100 predicted malignant cells is wrongly predicted. This number is important because we need to know how reliable is the model's prediction when it states that patients have a malignant class cancer. Higher rate for precision means better allocation of resources to the hospitals and to the patients to treat malignant cancers. 
+```{r}
+precision(confusionMatrix)
+```
+
+# Part 6: Logistic Regression Model
+#### Perform a logistic regression of Class as a function of Clump_Thickness, Uniformity_of_Cell_Size, Uniformity_of_Cell_Shape, Marginal_Adhesion, and Single_Epithelial_Cell_Size.
+Logistics regression model is a statistical model used to classify an object given a set of variables. We will use logistic regression model to predict the class of the cancer cells. 
+```{r}
+trainingWithLabel = cancer.training
+trainingWithLabel$class = cancer.trainLabels
+
+logModel = glm(class ~ 
+                 Clump_Thickness + 
+                 Uniformity_of_Cell_Size + 
+                 Uniformity_of_Cell_Shape +
+                 Marginal_Adhesion +
+                 Single_Epithelial_Cell_Size, 
+               data=trainingWithLabel, 
+               family="binomial")
+
+predictionLog = predict(logModel, cancer.test, type="response")
+
+cancer.test$class = cancer.testLabels
+cancer.test$prediction = ifelse(predictionLog>0.7, "Malignant", "Benign")
+```
+
+#### Produce the confusion matrix for the logistics model
+```{r}
+(logConfusionMatrix = table(prediction=cancer.test$prediction,
+                           actual=cancer.testLabels))
+```
+
+#### Calculate sensitivity, specificity, accuracy, and precision
+The sensitivity of the logistics model is .9104. This model has a higher sensitivity that the KNN prediction model. The logistics model has a higher rate of accuracy predicting the class given that the actual class is malignant. This model would be more reliable to inform malignant cancer patients of their class than the KNN prediction model.
+```{r}
+sensitivity(logConfusionMatrix)
+```
+
+The specificity of the logistics model is .9353. The logistics model has a lower specificity than the KNN model. The logistics model predicts at a less accurately the class given that the actual class is benign than the KNN prediction model. It is better to use the KNN model instead of the logistics model if we know that the patient's  has benign cancer.  
+```{r}
+specificity(logConfusionMatrix)
+```
+
+Moving on, the logistics model has a accuracy of .9283. The logisitics model has an accuracy slightly lower than that of the KNN model. In other words, without knowing the class of patients, the logistic model would yield a slightly lower rate of correctly predicting than the KNN model. The logisitcs model perform better in a real case scenario. 
+```{r}
+accuracy(logConfusionMatrix)
+```
+
+Finally, the precision of the model is .8472. The logistic model has a precision 4% less than the KNN prediction model. This means that for every 100 cancer patients, the logistics model will incorrectly give the wrong report to 16 patients, 4 more than that of the KNN model.
+```{r}
+precision(logConfusionMatrix)
+```
+
+# Part 7: Decision Tree
+#### Calculate a decision tree predicting Class as a function of Clump_Thickness, Uniformity_of_Cell_Size, Uniformity_of_Cell_Shape, Marginal_Adhesion, and Single_Epithelial_Cell_Size
+Decision Tree is a supervised model used to classify an object based on a set of decisions made beforehand. These sets of decisions are determined using known variables in the data set. We will use the decision tree model to help us classify the class of cancer cells.
+```{r}
+treeModel = rpart(class ~
+                    Clump_Thickness +
+                    Uniformity_of_Cell_Size +
+                    Uniformity_of_Cell_Shape +
+                    Marginal_Adhesion +
+                    Single_Epithelial_Cell_Size,
+                  data=trainingWithLabel,
+                  control=rpart.control(maxdepth = 3),
+                  method='class')
+
+predictionTree = predict(treeModel, cancer.test, type="class")
+```
+
+#### Produce confusion matrix
+```{r}
+(treeConfusionMatrix = table(actual=cancer.testLabels,
+                            prediction=predictionTree))
+```
+
+#### Calculate sensitivity, specificity, accuracy and precision.
+The sensitivity for the decision tree matrix is .9167. This means that only 9 in 100 patient will recieve the wrong report given that the class is malignant. This is the highest sensitivity rating of the three models and this would be the best model to use if the class is malignant.
+```{r}
+sensitivity(treeConfusionMatrix)
+```
+
+The specificity of the decision tree model is .9394. This rate does not vary much than the specificity for the logistic regression. However, specificity is not as important in our analysis in this case. This rate only shows that the model can correctly predict the class given patient's class is benign. 
+```{r}
+specificity(treeConfusionMatrix)
+```
+
+Moving on, the accuracy of the decision tree model is .9325. The accuracy of this model is the same as the other 2 model, varying only by less than 1%. This means that in terms of predicting the overall class, all these models predict equally as well as one another, whether the underlying class is benign or malignant.  
+```{r}
+accuracy(treeConfusionMatrix)
+```
+
+Last but not least, the precision of the decision tree model is .8684. This rate is higher than the logistic regression model but lower than the KNN prediction model. We can trust the decision tree's model more than that of the logistic model but less than that of the KNN prediction model when it comes to overall prediction of malignant cancer cells. 
+```{r}
+precision(treeConfusionMatrix)
+```
+
+# Part 7: Conclusion
+#### Is there one method that is best than the others, and why?
+Yes, there is one method that is best than the others in this case. Since we are dealing with two types of cancers, one where cancer cells are active and one where cancer cells are dormant, we must use the method that would help us correctly identify the class if the patient has a malignant cancer cell at the highest rate possible. In this case, the decision tree would be the correct model because the sensitivity of the model is the highest. We would reduce our risk that patients allow malignant cancer cells to continue to develop and increase the rate of patients reacting to cancer cells with proper treatments. 
+```{r}
+sensitivity(confusionMatrix)
+sensitivity(logConfusionMatrix)
+sensitivity(treeConfusionMatrix)
+```
+
+
+
