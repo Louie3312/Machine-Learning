@@ -5,9 +5,9 @@ date: "2022-11-10"
 output: pdf_document
 ---
 
-In this project, our objective is to detect early signs of breast cancer by analyzing breast cancer data. We will employ three different
-machine leaning techniques: the KNN prediction model, logistic regression model, and decision tree model. Each machine learning technique will
-be evaluated based on predefined metrics of success in order to determine the most suitable technique for implementation. 
+In this project, our primary objective is to detect early signs of breast cancer by analyzing a breast cancer dataset encompassing various collected characteristics of breast
+cancer. We will employ three different machine leaning techniques: the KNN prediction model, logistic regression model, and decision tree model. Each machine learning technique
+will be evaluated based on predefined metrics of success in order to determine the most suitable technique for the task. 
 
 # Import Libraries
 ```{r message=FALSE, warning=FALSE}
@@ -18,7 +18,10 @@ library(rpart)
 set.seed(23)
 ```
 
-The dataset that we will be included 
+To ensure replicability and facilitate further research, the dataset that will be used in this project will also be included in the files section of this project. By providing
+access to the dataset, other researchers and practitioners will be able to replicate our experiments, verify our findings, and potentially build upon our work in the field of
+breast cancer detection.
+
 # Part 1: Import Dataset
 #### The Data Set
 ```{r}
