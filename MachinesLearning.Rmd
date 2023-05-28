@@ -5,7 +5,7 @@ date: "2022-11-10"
 output: pdf_document
 ---
 
-(In this project, we will be analyzing a dataset containing records of samples of cancer cells from different patients. Each records will have details of the cell size and shape along with other details about the cancer cell. We will use this data set to help us predict the nature of the cancer cells and hopefully develop an algorithm to correctly identity the nature before its too late. We will test 3 machine learning algorithms to determine which model is most accurate and better at predicting.)
+In this project, our objective is to detect early signs of breast cancer by analyzing breast cancer data. We will employ three different machine leaning techniques: the KNN prediction model, logistic regression model, and decision tree model. Each machine learning technique will be evaluated based on predefined metrics of success in order to determine the most suitable technique for implementation. 
 
 # Import Libraries
 ```{r message=FALSE, warning=FALSE}
@@ -16,9 +16,9 @@ library(rpart)
 set.seed(23)
 ```
 
+The dataset that we will be included 
 # Part 1: Import Dataset
 #### The Data Set
-In the code below, we set up the dataset. We rename each column to their correct names and translate the cell classes to their more coherent labels.  
 ```{r}
 cancer = read.csv("breastcancer.csv")
 
