@@ -1,8 +1,13 @@
 README
 
 
-Cell size and clump thickness are two important features that can provide insights into the nature of breast cancer cells. Generally, larger cell sizes and increased clump thickness are associated with malignant or cancerous cells, while smaller cell sizes and lower clump thickness are indicative of benign or non-cancerous cells.
+Cell size and clump thickness are two important features that can provide insights into the nature of breast cancer cells. Generally, larger cell sizes and increased clump 
+thickness are associated with malignant or cancerous cells, while smaller cell sizes and lower clump thickness are indicative of benign or non-cancerous cells. 
 
-By analyzing the relationship between cell size and clump thickness in breast cancer data, we can observe patterns and correlations that help in identifying the nature of the cells. For example, if we observe a combination of larger cell sizes and higher clump thickness values in a sample, it suggests a higher likelihood of malignant cells. On the other hand, smaller cell sizes and lower clump thickness values indicate a higher probability of benign cells.
+By analyzing the relationship between cell size and clump thickness in breast cancer data, we can observe patterns and correlations that help in identifying the nature of the 
+cells. For example, if we observe a combination of larger cell sizes and higher clump thickness values in a sample, it suggests a higher likelihood of malignant cells. On 
+the other hand, smaller cell sizes and lower clump thickness values indicate a higher probability of benign cells.
 
-Machine learning algorithms can leverage these features to learn and classify breast cancer cells into malignant or benign categories. By training a model on a labeled dataset that includes cell size and clump thickness information, the model can make predictions on new, unseen data and provide valuable insights into the nature of the breast cancer cells under consideration.
+Machine learning algorithms can leverage these features to learn and classify breast cancer cells into malignant or benign categories. By training a model on a labeled dataset 
+that includes cell size and clump thickness information, the model can make predictions on new, unseen data and provide valuable insights into the nature of the breast cancer 
+cells under consideration.
