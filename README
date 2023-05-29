@@ -1,5 +1,13 @@
-README
+OBJECTIVE: 
+In this project, our primary objective is to detect early signs of breast cancer by analyzing a breast cancer dataset encompassing various collected characteristics of breast
+cancer. We will employ three different machine leaning techniques: the KNN prediction model, logistic regression model, and decision tree model. Each machine learning technique
+will be evaluated based on predefined metrics of success in order to determine the most suitable technique for the task.  The four predefined metrics will be sensitivity, 
+specificity, accuracy, and precision.
 
+INTRODUCTION:
+Breast cancer has always been a growing concern for women in the United States and has continue to impact many woman over the age of 30. Breast cancer is the mutation of 
+cells in the breast, causing cells  to grow into large tumors that can travel and cause other tumors in areas such as the arm pit. Even though the survivalability of woman with
+breast cancer has increased, an earlier detection of breast cancer would only increase chance of survival.
 
 Cell size and clump thickness are two important features that can provide insights into the nature of breast cancer cells. Generally, larger cell sizes and increased clump 
 thickness are associated with malignant or cancerous cells, while smaller cell sizes and lower clump thickness are indicative of benign or non-cancerous cells. 
@@ -11,3 +19,5 @@ the other hand, smaller cell sizes and lower clump thickness values indicate a h
 Machine learning algorithms can leverage these features to learn and classify breast cancer cells into malignant or benign categories. By training a model on a labeled dataset 
 that includes cell size and clump thickness information, the model can make predictions on new, unseen data and provide valuable insights into the nature of the breast cancer 
 cells under consideration.
+
+RESULTS:
