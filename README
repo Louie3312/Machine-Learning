@@ -1,4 +1,4 @@
-OBJECTIVE: 
+ABSTRACT: 
 In this project, our primary objective is to detect early signs of breast cancer by analyzing a breast cancer dataset encompassing various collected characteristics of breast
 cancer. We will employ three different machine leaning techniques: the KNN prediction model, logistic regression model, and decision tree model. Each machine learning technique
 will be evaluated based on predefined metrics of success in order to determine the most suitable technique for the task.  The four predefined metrics will be sensitivity, 
