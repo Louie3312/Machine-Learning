@@ -4,6 +4,7 @@ cancer. We will employ three different machine leaning techniques: the KNN predi
 will be evaluated based on predefined metrics of success in order to determine the most suitable technique for the task.  The four predefined metrics will be sensitivity, 
 specificity, accuracy, and precision.
 
+
 INTRODUCTION:
 Breast cancer has always been a growing concern for women in the United States and has continue to impact many woman over the age of 30. Breast cancer is the mutation of 
 cells in the breast, causing cells  to grow into large tumors that can travel and cause other tumors in areas such as the arm pit. Even though the survivalability of woman with
@@ -20,12 +21,40 @@ Machine learning algorithms can leverage these features to learn and classify br
 that includes cell size and clump thickness information, the model can make predictions on new, unseen data and provide valuable insights into the nature of the breast cancer 
 cells under consideration.
 
+
 DATA:
 To ensure replicability and facilitate further research, the dataset that will be used in this project will also be included in the files section of this project. By providing 
 access to the dataset, other researchers and practitioners will be able to replicate our experiments, verify our findings, and potentially build upon our work in the field of 
 breast cancer detection.
 
-The dataset encompasses 700 records and each record comprising of 11 fields of information. This comprehensive dataset provides significant amount of data to analyze and extract 
-insight from, faciliating the exploration and development of models specifically related to breast cancer. 
+The dataset encompasses 700 records and each record comprising of 11 fields of information. This comprehensive dataset provides significant amount of data to analyze and 
+extract insight from, faciliating the exploration and development of models specifically related to breast cancer. 
+
+
+DEFINITIONS:
+KNN prediction model - classification method used to classify an object by their similarity to its nearest combination of variables. This method is often used when a 
+classification of an object can not be easily determined by itself. 
+
+
+
+
+
+
+
 
 RESULTS:
+KNN prediction model - The sensitivity of this model is 0.8889. This model will correctly identify a malignant class cell 88.89% of the time of all patients with malignant 
+class cancers. In other words, about 12 in 100 patients who have malignant cancer will be incorrectly notified that they have a benign class cancer. 12% of patients would 
+expect to be given a incorrect report using this model. This number should be taken seriously because this rate determines if a patient will be able to react in a timely manner
+to their results. Patient who has malignant class cancer needs to be notified on time and as soon as possible. 
+
+The specificity of this model is 0.9515. This means that this model will correctly identify a benign class cancer 95.15% of the times given that patients actually cell is a 
+benign class cancer. However, even though this number is high, in terms of importance, specificity is not as important as sensitivity; it is not as crucial to notify cancer 
+patient that their cancer class is not life threatening than it is to correctly notify a cancer patient that their cancer is life threatening.
+
+Moving on, the accuracy of this model is 0.9325. This means that this model correctly identifies the correct class of cancer 93.25% of the time for all cancer patients. This 
+number is high and represent that out of 100 patients, the model will only make 7 bad predictions. This rate represents a realistic prediction of the reliability of the model 
+because we do not know if the class of cancer cell is benign or malignant beforehand in a real case.
+
+
+
