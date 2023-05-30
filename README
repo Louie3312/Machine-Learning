@@ -32,74 +32,69 @@ extract insight from, faciliating the exploration and development of models spec
 
 
 DEFINITIONS:
-KNN prediction model - classification method used to classify an object by their similarity to its nearest combination of variables. This method is often used when a 
-classification of an object can not be easily determined by itself. 
+KNN prediction model - a classification method used to classify an object by their similarity to its nearest combination of variables. This method is often used when a 
+classification of an object can is complex. 
 
-Logistics regression model - statistical modeling technique using function of weighted independent variables to predict possiblility of dependent variables. We will use 
-logistic regression model to predict the nature of the cancer cells with the assumption that malignant cancer cells score greater than 0.7.
+Logistics regression model - a statistical modeling technique using function of weighted independent variables to predict possiblility of dependent variables. We will use 
+logistic regression model to predict the nature of cancer cells with the assumption that malignant cancer cells score greater than 0.7.
 
-Decision Tree - a supervised model used to classify an object based on sequences of decisions made using nodes and branches. Classification of an object is determined by the 
-result of the leaf nodes or the last decision made. 
+Decision Tree - supervised model that employs nodes and branches to classify an object. Classification of the object is determined by the result of the leaf nodes, or the
+last decision made. 
 
 
 RESULTS:
-KNN prediction model - The sensitivity of this model is 0.8889. This model will correctly identify a malignant class cell 88.89% of the time of all patients with malignant 
-class cancers. In other words, about 12 in 100 patients who have malignant cancer will be incorrectly notified that they have a benign class cancer. 12% of patients would 
-expect to be given a incorrect report using this model. This number should be taken seriously because this rate determines if a patient will be able to react in a timely manner
-to their results. Patient who has malignant class cancer needs to be notified on time and as soon as possible. 
+After conducting evaluations of the three machine learning techniques, it is important to interpret the distinct meanings conveyed by each evaluation metric. By 
+considering these evaluation metrics collectively, we can gain a comprehensive understanding of the model's performance in terms of correctly identifying both malignant 
+and benign class cells. This information is crucial for making informed decisions regarding patient care, resource allocation, and treatment strategies.
 
-The specificity of this model is 0.9515. This means that this model will correctly identify a benign class cancer 95.15% of the times given that patients actually cell is a 
-benign class cancer. However, even though this number is high, in terms of importance, specificity is not as important as sensitivity; it is not as crucial to notify cancer 
-patient that their cancer class is not life threatening than it is to correctly notify a cancer patient that their cancer is life threatening.
+Let's take the KNN prediction model as an example to illustrate how we can interpret each metric. By following a similar thought process, we can apply the same analysis 
+to the remaining metrics of the other two techniques.
 
-Moving on, the accuracy of this model is 0.9325. This means that this model correctly identifies the correct class of cancer 93.25% of the time for all cancer patients. This 
-number is high and represent that out of 100 patients, the model will only make 7 bad predictions. This rate represents a realistic prediction of the reliability of the model 
-because we do not know if the class of cancer cell is benign or malignant beforehand in a real case.
+The sensitivity of this model is 0.8889, indicating that it correctly identifies a malignant cell 88.89% of the time for patients with malignant class cells. However, 
+it also means that about 12 in 100 patients who have malignant class cells will be incorrectly notified that they have benign class cells. This equates to an error rate of 
+12%, which should be taken seriously because it determines whether a patient can react promptly to their results. 
 
-Last but not least, the precision of this model is 0.8889. This model is correct 88.89% of the time in identifying malignant cancer cells given that the cancer cell is 
-malignant. In other words, 12 in 100 predicted malignant cells is wrongly predicted. This number is important because we need to know how reliable is the model's prediction 
-when it states that patients have a malignant class cancer. Higher rate for precision means better allocation of resources to the hospitals and to the patients to treat 
-malignant cancers. 
+The specificity of this model is 0.9515, indicating that it correctly identifies a benign class cells 95.15% of the time when patients actually have a benign class cells. 
+While this number is high and represents a good ability to identify non-life-threatening cases, it is important to acknowledge the relative importance of specificity 
+compared to sensitivity.
 
+The accuracy of this model is 0.9325, indicating that it correctly identifies the correct class of cancer 93.25% of the time for all cancer patients. This high accuracy 
+implies that out of 100 patients, the model will make only 7 incorrect predictions, assuming an equal distribution of benign and malignant cases.
 
-Logistics Regression Model - The sensitivity of the logistics model is .9104. This model has a higher sensitivity that the KNN prediction model. The logistics model has a 
-higher rate of accuracy predicting the class given that the actual class is malignant. This model would be more reliable to inform malignant cancer patients of their class 
-than the KNN prediction model.
-
-The specificity of the logistics model is .9353. The logistics model has a lower specificity than the KNN model. The logistics model predicts at a less accurately the class 
-given that the actual class is benign than the KNN prediction model. It is better to use the KNN model instead of the logistics model if we know that the patient's  has benign 
-cancer.  
-
-Moving on, the logistics model has a accuracy of .9283. The logisitics model has an accuracy slightly lower than that of the KNN model. In other words, without knowing the 
-class of patients, the logistic model would yield a slightly lower rate of correctly predicting than the KNN model. The logisitcs model perform better in a real case scenario.
-
-Finally, the precision of the model is .8472. The logistic model has a precision 4% less than the KNN prediction model. This means that for every 100 cancer patients, the 
-logistics model will incorrectly give the wrong report to 16 patients, 4 more than that of the KNN model.
-
-
-Decision Tree - The sensitivity for the decision tree matrix is .9167. This means that only 9 in 100 patient will recieve the wrong report given that the class is malignant. 
-This is the highest sensitivity rating of the three models and this would be the best model to use if the class is malignant.
-
-The specificity of the decision tree model is .9394. This rate does not vary much than the specificity for the logistic regression. However, specificity is not as important in 
-our analysis in this case. This rate only shows that the model can correctly predict the class given patient's class is benign. 
-
-Moving on, the accuracy of the decision tree model is .9325. The accuracy of this model is the same as the other 2 model, varying only by less than 1%. This means that in terms 
-of predicting the overall class, all these models predict equally as well as one another, whether the underlying class is benign or malignant.  
-
-Last but not least, the precision of the decision tree model is .8684. This rate is higher than the logistic regression model but lower than the KNN prediction model. We can 
-trust the decision tree's model more than that of the logistic model but less than that of the KNN prediction model when it comes to overall prediction of malignant cancer 
-cells. 
-
+The precision of this model is 0.8889, indicating that it is correct 88.89% of the time in identifying malignant cancer cells given that the cancer cell is indeed 
+malignant. In other words, out of 100 predicted malignant cells, approximately 12 are wrongly predicted.
 
 
 CONCLUSION
-#### Is there one method that is best than the others, and why?
-Yes, there is one method that is best than the others in this case. Since we are dealing with two types of cancers, one where cancer cells are active and one where cancer cells are dormant, we must use the method that would help us correctly identify the class if the patient has a malignant cancer cell at the highest rate possible. In this case, the decision tree would be the correct model because the sensitivity of the model is the highest. We would reduce our risk that patients allow malignant cancer cells to continue to develop and increase the rate of patients reacting to cancer cells with proper treatments. 
+Is there one method that is best than the others, and why?
+Yes, there is one method that is best than the others in this case. Since we are dealing with two types of cancers, one where cancer cells are active and one where cancer cells are 
+dormant, we must use the method that would help us correctly identify the class if the patient has a malignant cancer cell at the highest rate possible. In this case, the decision tree 
+would be the correct model because the sensitivity of the model is the highest. We would reduce our risk that patients allow malignant cancer cells to continue to develop and increase 
+the rate of patients reacting to cancer cells with proper treatments. 
 ```{r}
 sensitivity(confusionMatrix)
 sensitivity(logConfusionMatrix)
 sensitivity(treeConfusionMatrix)
 ```
+
+In the context of cancer detection, sensitivity (the ability to correctly identify malignant class cancer) is typically considered more critical than specificity. It is more crucial 
+to accurately notify a cancer patient that their cancer is life-threatening and requires immediate attention and treatment. False negatives (benign cases incorrectly classified as 
+malignant) could delay necessary interventions, which can have serious consequences for patients' health outcomes.
+
+While high specificity is desirable to minimize false positives and avoid unnecessary anxiety or treatments for benign cases, striking the right balance between sensitivity and 
+specificity is crucial in cancer diagnosis. Efforts should be made to improve sensitivity without compromising specificity, ensuring timely and accurate identification of malignant 
+cases while minimizing false negatives.
+
+This precision value is significant because it provides insight into the reliability of the model's predictions when it classifies patients as having a malignant class cancer. A 
+higher precision rate implies better allocation of resources to hospitals and patients for the treatment of malignant cancers. It ensures that the resources are appropriately directed 
+to individuals who genuinely require them, reducing the likelihood of unnecessary treatments for benign cases.
+
+Improving precision is particularly important in the context of cancer diagnosis to avoid false positive predictions. Enhancing the model's precision can help optimize resource 
+allocation and enhance the accuracy of identifying malignant cases, ensuring that patients receive timely and targeted treatment for their specific condition.
+
+
+
+
 
 
 
