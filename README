@@ -1,4 +1,4 @@
-**ABSTRACT:**
+ABSTRACT:
 In this project, our primary objective is to detect early signs of breast cancer by analyzing a breast cancer dataset encompassing various collected characteristics of breast
 cancer. We will employ three different machine leaning techniques: the KNN prediction model, logistic regression model, and decision tree model. Each machine learning technique
 will be evaluated based on predefined metrics of success in order to determine the most suitable technique for the task.  The four predefined metrics will be sensitivity, 
@@ -38,15 +38,8 @@ classification of an object can not be easily determined by itself.
 Logistics regression model - statistical modeling technique using function of weighted independent variables to predict possiblility of dependent variables. We will use 
 logistic regression model to predict the nature of the cancer cells with the assumption that malignant cancer cells score greater than 0.7.
 
-Decision Tree - a supervised model used to classify an object based on a set of decisions made beforehand. These sets of decisions are determined using known variables in the 
-data set. We will use the decision tree model to help us classify the class of cancer cells.
-
-
-
-
-
-
-
+Decision Tree - a supervised model used to classify an object based on sequences of decisions made using nodes and branches. Classification of an object is determined by the 
+result of the leaf nodes or the last decision made. 
 
 
 RESULTS:
@@ -84,8 +77,29 @@ Finally, the precision of the model is .8472. The logistic model has a precision
 logistics model will incorrectly give the wrong report to 16 patients, 4 more than that of the KNN model.
 
 
+Decision Tree - The sensitivity for the decision tree matrix is .9167. This means that only 9 in 100 patient will recieve the wrong report given that the class is malignant. 
+This is the highest sensitivity rating of the three models and this would be the best model to use if the class is malignant.
+
+The specificity of the decision tree model is .9394. This rate does not vary much than the specificity for the logistic regression. However, specificity is not as important in 
+our analysis in this case. This rate only shows that the model can correctly predict the class given patient's class is benign. 
+
+Moving on, the accuracy of the decision tree model is .9325. The accuracy of this model is the same as the other 2 model, varying only by less than 1%. This means that in terms 
+of predicting the overall class, all these models predict equally as well as one another, whether the underlying class is benign or malignant.  
+
+Last but not least, the precision of the decision tree model is .8684. This rate is higher than the logistic regression model but lower than the KNN prediction model. We can 
+trust the decision tree's model more than that of the logistic model but less than that of the KNN prediction model when it comes to overall prediction of malignant cancer 
+cells. 
 
 
+
+CONCLUSION
+#### Is there one method that is best than the others, and why?
+Yes, there is one method that is best than the others in this case. Since we are dealing with two types of cancers, one where cancer cells are active and one where cancer cells are dormant, we must use the method that would help us correctly identify the class if the patient has a malignant cancer cell at the highest rate possible. In this case, the decision tree would be the correct model because the sensitivity of the model is the highest. We would reduce our risk that patients allow malignant cancer cells to continue to develop and increase the rate of patients reacting to cancer cells with proper treatments. 
+```{r}
+sensitivity(confusionMatrix)
+sensitivity(logConfusionMatrix)
+sensitivity(treeConfusionMatrix)
+```
 
 
 
