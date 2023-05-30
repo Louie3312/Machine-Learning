@@ -48,7 +48,7 @@ considering these evaluation metrics collectively, we can gain a comprehensive u
 and benign class cells. This information is crucial for making informed decisions regarding patient care, resource allocation, and treatment strategies.
 
 Let's take the KNN prediction model as an example to illustrate how we can interpret each metric. By following a similar thought process, we can apply the same analysis 
-to the remaining metrics of the other two techniques.
+to the remaining metrics of the logistic regression model and decision tree model.
 
 The sensitivity of this model is 0.8889, indicating that it correctly identifies a malignant cell 88.89% of the time for patients with malignant class cells. However, 
 it also means that about 12 in 100 patients who have malignant class cells will be incorrectly notified that they have benign class cells. This equates to an error rate of 
@@ -65,32 +65,25 @@ The precision of this model is 0.8889, indicating that it is correct 88.89% of t
 malignant. In other words, out of 100 predicted malignant cells, approximately 12 are wrongly predicted.
 
 
-CONCLUSION
-Is there one method that is best than the others, and why?
-Yes, there is one method that is best than the others in this case. Since we are dealing with two types of cancers, one where cancer cells are active and one where cancer cells are 
-dormant, we must use the method that would help us correctly identify the class if the patient has a malignant cancer cell at the highest rate possible. In this case, the decision tree 
-would be the correct model because the sensitivity of the model is the highest. We would reduce our risk that patients allow malignant cancer cells to continue to develop and increase 
-the rate of patients reacting to cancer cells with proper treatments. 
-```{r}
-sensitivity(confusionMatrix)
-sensitivity(logConfusionMatrix)
-sensitivity(treeConfusionMatrix)
-```
-
-In the context of cancer detection, sensitivity (the ability to correctly identify malignant class cancer) is typically considered more critical than specificity. It is more crucial 
-to accurately notify a cancer patient that their cancer is life-threatening and requires immediate attention and treatment. False negatives (benign cases incorrectly classified as 
+CONCLUSION:
+In the context of cancer detection, sensitivity (the ability to correctly identify malignant class cell) is typically considered more critical than specificity. It is more crucial 
+to accurately notify a cancer patient that their cancer is life-threatening and requires immediate attention and treatment. False negatives (benign cells incorrectly classified as 
 malignant) could delay necessary interventions, which can have serious consequences for patients' health outcomes.
 
 While high specificity is desirable to minimize false positives and avoid unnecessary anxiety or treatments for benign cases, striking the right balance between sensitivity and 
 specificity is crucial in cancer diagnosis. Efforts should be made to improve sensitivity without compromising specificity, ensuring timely and accurate identification of malignant 
-cases while minimizing false negatives.
+cells while minimizing false negatives.
 
-This precision value is significant because it provides insight into the reliability of the model's predictions when it classifies patients as having a malignant class cancer. A 
+The precision value is significant because it provides insight into the reliability of the model's predictions when it classifies patients as having a malignant class cancer. A 
 higher precision rate implies better allocation of resources to hospitals and patients for the treatment of malignant cancers. It ensures that the resources are appropriately directed 
 to individuals who genuinely require them, reducing the likelihood of unnecessary treatments for benign cases.
 
 Improving precision is particularly important in the context of cancer diagnosis to avoid false positive predictions. Enhancing the model's precision can help optimize resource 
 allocation and enhance the accuracy of identifying malignant cases, ensuring that patients receive timely and targeted treatment for their specific condition.
+
+In conclusion, it is crucial to find a solution that optimizes the goals of the institution considering the varying performance of each technique across different metrics. 
+Each technique exhibits its strengths and weaknesses, which can impact their suitability for specific objectives. Understanding the performance differences between techniques 
+allows the institution to select the most suitable approach that aligns with their specific goals, resources, and requirements.
 
 
 
